@@ -361,38 +361,6 @@ body {
   transform: translateY(20%) rotate(-1deg);
 }
 
-/* Авто-демо жестов на тач-устройствах: при загрузке сегменты по очереди
-   проигрывают свою анимацию (без раскрытия и без кнопки «перейти») */
-.panel.is-intro .bird {
-  animation: bird-fly 1400ms var(--ease-out-strong) forwards;
-}
-
-.panel.is-intro .bird--2 {
-  animation-delay: 120ms;
-  animation-duration: 1600ms;
-}
-
-.panel.is-intro .bird--3 {
-  animation-delay: 240ms;
-  animation-duration: 1800ms;
-}
-
-.panel.is-intro .shine-sweep {
-  animation: shine-sweep 900ms var(--ease-out-strong) forwards;
-}
-
-.panel.is-intro .shine-star {
-  animation: shine-star 700ms var(--ease-out-strong) 250ms forwards;
-}
-
-.panel.is-intro .wine-layer {
-  transform: translateY(32%) rotate(0.5deg);
-}
-
-.panel.is-intro .wine-layer--back {
-  transform: translateY(20%) rotate(-1deg);
-}
-
 .panel.is-dimmed {
   flex-grow: 0.75;
 }
@@ -464,26 +432,21 @@ body {
   .panel.is-active .bird,
   .panel:focus-visible .bird,
   .panel:hover .bird,
-  .panel.is-intro .bird,
   .panel.is-active .shine-sweep,
   .panel:focus-visible .shine-sweep,
   .panel:hover .shine-sweep,
-  .panel.is-intro .shine-sweep,
   .panel.is-active .shine-star,
   .panel:focus-visible .shine-star,
-  .panel:hover .shine-star,
-  .panel.is-intro .shine-star {
+  .panel:hover .shine-star {
     animation: none;
   }
 
   .panel.is-active .wine-layer,
   .panel:focus-visible .wine-layer,
   .panel:hover .wine-layer,
-  .panel.is-intro .wine-layer,
   .panel.is-active .wine-layer--back,
   .panel:focus-visible .wine-layer--back,
-  .panel:hover .wine-layer--back,
-  .panel.is-intro .wine-layer--back {
+  .panel:hover .wine-layer--back {
     transform: translateY(115%);
   }
 

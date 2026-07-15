@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 type Venue = {
   slug: string;
@@ -95,20 +95,6 @@ const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 export function Triptych() {
   const [active, setActive] = useState<number | null>(null);
-  const [intro, setIntro] = useState<number | null>(null);
-
-  // На тач-устройствах ховера нет — при загрузке по очереди проигрываем
-  // фирменный жест каждого сегмента (один раз, без зацикливания)
-  useEffect(() => {
-    if (!window.matchMedia("(hover: none)").matches) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const step = 1300;
-    const timers = [0, 1, 2].map((i) =>
-      window.setTimeout(() => setIntro(i), 800 + i * step),
-    );
-    timers.push(window.setTimeout(() => setIntro(null), 800 + 3 * step));
-    return () => timers.forEach(clearTimeout);
-  }, []);
 
   const handleClick =
     (i: number) => (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -132,7 +118,6 @@ export function Triptych() {
             "panel",
             active === i ? "is-active" : "",
             active !== null && active !== i ? "is-dimmed" : "",
-            intro === i ? "is-intro" : "",
           ]
             .filter(Boolean)
             .join(" ")}
