@@ -89,7 +89,8 @@ function Gesture({ kind }: { kind: Venue["gesture"] }) {
   );
 }
 
-// next/image учитывает basePath сам, обычному <img> префикс нужен вручную
+// В статическом экспорте с unoptimized next/image не префиксует src
+// значением basePath — добавляем его вручную и для обложек, и для логотипов
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 export function Triptych() {
@@ -123,7 +124,7 @@ export function Triptych() {
           onClick={handleClick(i)}
         >
           <Image
-            src={v.cover}
+            src={`${basePath}${v.cover}`}
             alt=""
             fill
             priority
