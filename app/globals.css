@@ -81,6 +81,20 @@ body {
   );
 }
 
+/* На телефоне сегмент — треть экрана: подпись оказывается выше по фото,
+   где затемнение слабое. Поднимаем и уплотняем градиент в зоне текста. */
+@media (max-width: 767px) {
+  .panel__scrim {
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.8) 0%,
+      rgba(0, 0, 0, 0.55) 38%,
+      rgba(0, 0, 0, 0.22) 68%,
+      rgba(0, 0, 0, 0.12) 100%
+    );
+  }
+}
+
 .panel__content {
   position: absolute;
   inset-inline: 0;
@@ -95,8 +109,9 @@ body {
 .panel__logo {
   height: clamp(26px, 4.5vh, 42px);
   width: auto;
-  filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.65))
-    drop-shadow(0 0 2px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(0 2px 14px rgba(0, 0, 0, 0.75))
+    drop-shadow(0 1px 3px rgba(0, 0, 0, 0.65))
+    drop-shadow(0 0 1px rgba(0, 0, 0, 0.5));
 }
 
 /* Рукописный знак «Ясного» компактнее словесных — выравниваем оптический размер */
