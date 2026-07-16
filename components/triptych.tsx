@@ -142,11 +142,13 @@ export function Triptych() {
             <img
               src={`${basePath}${v.logo}`}
               alt={v.logoAlt}
-              className={
-                v.gesture === "shine"
-                  ? "panel__logo panel__logo--tall"
-                  : "panel__logo"
-              }
+              className={[
+                "panel__logo",
+                v.gesture === "shine" ? "panel__logo--tall" : "",
+                v.slug === "ptashka" ? "panel__logo--light-halo" : "",
+              ]
+                .filter(Boolean)
+                .join(" ")}
             />
             <p className="panel__desc">{v.desc}</p>
             <p className="panel__addr">{v.addr}</p>
