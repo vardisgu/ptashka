@@ -98,17 +98,11 @@ body {
   );
 }
 
-/* На телефоне сегмент — треть экрана: подпись оказывается выше по фото,
-   где затемнение слабое. Поднимаем и уплотняем градиент в зоне текста. */
+/* На телефоне фото остаётся чистым, без затемняющего градиента —
+   подпись живёт на собственной стеклянной плашке (см. .panel__content) */
 @media (max-width: 767px) {
   .panel__scrim {
-    background: linear-gradient(
-      to top,
-      rgba(0, 0, 0, 0.8) 0%,
-      rgba(0, 0, 0, 0.55) 38%,
-      rgba(0, 0, 0, 0.22) 68%,
-      rgba(0, 0, 0, 0.12) 100%
-    );
+    background: none;
   }
 }
 
@@ -122,6 +116,7 @@ body {
   align-items: flex-start;
   gap: 8px;
 }
+
 
 .panel__logo {
   height: clamp(26px, 4.5vh, 42px);
@@ -166,6 +161,58 @@ body {
 
 .panel__go svg {
   transition: transform 240ms var(--ease-out-strong);
+}
+
+/* Мобильная плашка подписи: тёмное стекло вместо градиента по всему фото */
+@media (max-width: 767px) {
+  .panel__content {
+    left: 12px;
+    right: auto;
+    bottom: 12px;
+    max-width: calc(100% - 24px);
+    padding: 10px 14px 11px;
+    gap: 4px;
+    border-radius: 14px;
+    background: rgba(13, 12, 11, 0.62);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+  }
+
+  /* «Перейти» до тапа не занимает место в плашке */
+  .panel__go {
+    display: none;
+  }
+
+  .panel.is-active .panel__go {
+    display: inline-flex;
+  }
+
+  /* Компактные лого и текст: на трети экрана десктопные размеры слишком крупные */
+  .panel__logo {
+    height: 28px;
+  }
+
+  .panel__logo--tall {
+    height: 42px;
+  }
+
+  .panel__desc {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .panel__addr {
+    font-size: 11px;
+  }
+
+  @media (prefers-reduced-transparency: reduce) {
+    .panel__content {
+      background: rgba(13, 12, 11, 0.92);
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+  }
 }
 
 /* ---------- Gesture layers ---------- */
