@@ -63,19 +63,27 @@ body {
   }
 }
 
+/* Фото, градиент и слои жестов живут в .panel__visual: на десктопе он
+   совпадает с панелью, на телефоне — это фото-часть «кадра с титром» */
+.panel__visual {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
 .panel__media {
   position: absolute;
   inset: 0;
 }
 
-/* На телефоне слой с фото фиксированного размера (больше сегмента в любом
+/* На телефоне слой с фото фиксированного размера (больше фото-области в любом
    состоянии): анимация высоты сегмента только открывает его часть, само фото
    не пережимается каждый кадр — раскрытие идёт без рывков */
 @media (max-width: 767px) {
   .panel__media {
     inset: auto 0 auto 0;
     top: 50%;
-    height: 72dvh;
+    height: 52dvh;
     transform: translateY(-50%);
   }
 }
@@ -163,25 +171,31 @@ body {
   transition: transform 240ms var(--ease-out-strong);
 }
 
-/* Мобильная плашка подписи: тёмное стекло вместо градиента по всему фото */
+/* Мобильный «кадр с титром»: чистое фото сверху, подпись — на узкой тёмной
+   полосе под ним, на фоне страницы. Никаких наложений на фотографию. */
 @media (max-width: 767px) {
-  .panel__content {
-    left: 12px;
-    right: auto;
-    bottom: 12px;
-    max-width: calc(100% - 24px);
-    padding: 10px 14px 11px;
-    gap: 4px;
-    border-radius: 14px;
-    background: rgba(13, 12, 11, 0.62);
-    -webkit-backdrop-filter: blur(14px);
-    backdrop-filter: blur(14px);
-    border: 1px solid rgba(255, 255, 255, 0.09);
+  .panel {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg);
   }
 
-  /* «Перейти» до тапа не занимает место в плашке */
+  .panel__visual {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .panel__content {
+    position: static;
+    padding: 9px 16px 11px;
+    gap: 3px;
+  }
+
+  /* «Перейти» до тапа не занимает место в титре */
   .panel__go {
     display: none;
+    margin-top: 2px;
   }
 
   .panel.is-active .panel__go {
@@ -190,11 +204,12 @@ body {
 
   /* Компактные лого и текст: на трети экрана десктопные размеры слишком крупные */
   .panel__logo {
-    height: 28px;
+    height: 26px;
+    filter: none;
   }
 
   .panel__logo--tall {
-    height: 42px;
+    height: 38px;
   }
 
   .panel__desc {
@@ -204,14 +219,6 @@ body {
 
   .panel__addr {
     font-size: 11px;
-  }
-
-  @media (prefers-reduced-transparency: reduce) {
-    .panel__content {
-      background: rgba(13, 12, 11, 0.92);
-      -webkit-backdrop-filter: none;
-      backdrop-filter: none;
-    }
   }
 }
 

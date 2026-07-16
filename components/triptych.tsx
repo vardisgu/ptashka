@@ -123,18 +123,20 @@ export function Triptych() {
             .join(" ")}
           onClick={handleClick(i)}
         >
-          <div className="panel__media">
-            <Image
-              src={`${basePath}${v.cover}`}
-              alt=""
-              fill
-              priority
-              sizes="(min-width: 768px) 34vw, 100vw"
-              className="panel__img"
-            />
+          <div className="panel__visual">
+            <div className="panel__media">
+              <Image
+                src={`${basePath}${v.cover}`}
+                alt=""
+                fill
+                priority
+                sizes="(min-width: 768px) 34vw, 100vw"
+                className="panel__img"
+              />
+            </div>
+            <div className="panel__scrim" />
+            <Gesture kind={v.gesture} />
           </div>
-          <div className="panel__scrim" />
-          <Gesture kind={v.gesture} />
           <div className="panel__content">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
