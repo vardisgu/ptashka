@@ -37,17 +37,39 @@ body {
 }
 
 .photo-pane {
+  position: relative;
   flex: 0 0 42%;
   overflow: hidden;
-  opacity: 0;
-  animation: fade 900ms ease forwards 150ms;
 }
 
-.photo-pane img {
+/* Слайды: новое фото «пишется» тем же вайпом, что и логотипы */
+.slide {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
+  z-index: 1;
+}
+
+.slide--hidden {
+  visibility: hidden;
+}
+
+.slide--in {
+  z-index: 2;
+  animation: slide-wipe 950ms var(--ease) both;
+}
+
+@keyframes slide-wipe {
+  from {
+    clip-path: inset(0 100% 0 0);
+    transform: scale(1.06);
+  }
+  to {
+    clip-path: inset(0 -1% 0 0);
+    transform: scale(1);
+  }
 }
 
 .content {
@@ -416,6 +438,11 @@ body {
     animation-delay: 0ms;
   }
 
+  /* смена фото — мягким кроссфейдом вместо вайпа */
+  .slide--in {
+    animation: slide-fade 700ms ease both;
+  }
+
   .bagel-rock,
   .star-wrap,
   .bottle-pos,
@@ -441,5 +468,14 @@ body {
   .doodle .pour {
     opacity: 0.85;
     stroke-dashoffset: 0;
+  }
+}
+
+@keyframes slide-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

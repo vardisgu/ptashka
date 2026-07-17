@@ -1,3 +1,5 @@
+import { PhotoPane } from "@/components/photo-pane";
+
 // В статическом экспорте с unoptimized next/image не префиксует src
 // значением basePath — добавляем его вручную
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
@@ -151,13 +153,7 @@ const doodles = {
 export function Hub() {
   return (
     <div className="page split">
-      <aside className="photo-pane">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={`${basePath}/photo/bagels.jpg`}
-          alt="Два бейгла с начинками в руках"
-        />
-      </aside>
+      <PhotoPane />
 
       <div className="content">
         <header className="top">
