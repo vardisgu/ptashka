@@ -31,6 +31,49 @@ body {
   flex-direction: column;
 }
 
+/* Сплит: фото слева, заведения справа */
+.split {
+  flex-direction: row;
+}
+
+.photo-pane {
+  flex: 0 0 42%;
+  overflow: hidden;
+  opacity: 0;
+  animation: fade 900ms ease forwards 150ms;
+}
+
+.photo-pane img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+}
+
+@media (max-width: 860px) {
+  .split {
+    flex-direction: column;
+  }
+
+  .photo-pane {
+    flex: none;
+    height: 30svh;
+  }
+
+  .content {
+    flex: 1;
+    min-height: 0;
+  }
+}
+
 .top {
   display: flex;
   justify-content: space-between;
@@ -77,18 +120,25 @@ body {
   gap: 12px;
 }
 
-/* Логотипы — векторные, чёрные, «пишутся» слева направо */
+/* Логотипы — векторная css-маска с чёрной заливкой: на ховере
+   перекрашивается вместе с остальным рядом. «Пишутся» слева направо */
 .row__logo {
+  display: block;
   height: clamp(44px, 7.5vw, 74px);
-  width: auto;
+  aspect-ratio: 2100 / 444;
+  background-color: var(--ink);
+  mask: center / contain no-repeat;
+  -webkit-mask: center / contain no-repeat;
   clip-path: inset(0 100% 0 0);
   animation: wipe 850ms var(--ease) forwards;
   animation-delay: calc(var(--row-d) + 0.12s);
+  transition: background-color 220ms ease;
 }
 
 /* Рукописный знак «Ясного» компактнее словесных — выравниваем оптический размер */
 .row__logo--tall {
   height: clamp(62px, 11vw, 106px);
+  aspect-ratio: 1920 / 1230;
 }
 
 /* Крупные глифы «Мелка» чуть ужимаем */
@@ -315,6 +365,10 @@ body {
     stroke: var(--accent);
   }
 
+  .row:hover .row__logo {
+    background-color: var(--accent);
+  }
+
   .row:hover .row__meta {
     color: var(--accent);
   }
@@ -326,6 +380,32 @@ body {
 
 .row:focus-visible .row__meta {
   color: var(--accent);
+}
+
+/* ---------- Нижняя навигация ---------- */
+
+.bottom {
+  display: flex;
+  justify-content: center;
+  gap: clamp(24px, 5vw, 56px);
+  padding: 18px 24px 24px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+}
+
+.bottom a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+  transition: color 180ms ease, border-color 180ms ease;
+}
+
+.bottom a:hover,
+.bottom a:focus-visible {
+  color: var(--accent);
+  border-color: var(--accent);
+  outline: none;
 }
 
 /* ---------- Reduced motion ---------- */

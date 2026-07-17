@@ -129,15 +129,25 @@ const doodles = {
 
 export function Hub() {
   return (
-    <div className="page">
-      <header className="top">
-        <span>одна команда — три места</span>
-        <span>казань</span>
-      </header>
+    <div className="page split">
+      <aside className="photo-pane">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={`${basePath}/photo/bagels.jpg`}
+          alt="Два бейгла с начинками в руках"
+        />
+      </aside>
 
-      <main className="rows">
+      <div className="content">
+        <header className="top">
+          <span>одна команда — три места</span>
+          <span>казань</span>
+        </header>
+
+        <main className="rows">
         {venues.map((v, i) => {
           const Doodle = doodles[v.doodle];
+          const mask = `url(${basePath}${v.logo})`;
           return (
             <a
               key={v.slug}
@@ -149,15 +159,26 @@ export function Hub() {
             >
               {v.doodleSide === "left" && <Doodle />}
               <span className="row__stack">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${basePath}${v.logo}`} alt={v.logoAlt} className={v.logoClass} />
+                <span
+                  role="img"
+                  aria-label={v.logoAlt}
+                  className={v.logoClass}
+                  style={{ maskImage: mask, WebkitMaskImage: mask }}
+                />
                 <span className="row__meta">{v.meta}</span>
               </span>
               {v.doodleSide === "right" && <Doodle />}
             </a>
           );
         })}
-      </main>
+        </main>
+
+        <nav className="bottom">
+          <a href="#">бронировать</a>
+          <a href="#">афиша</a>
+          <a href="#">чаевые</a>
+        </nav>
+      </div>
     </div>
   );
 }
