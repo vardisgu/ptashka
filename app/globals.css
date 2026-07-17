@@ -87,7 +87,9 @@ body {
 
   .photo-pane {
     flex: none;
-    height: 30svh;
+    /* фото уходит под чёлку: добавляем верхний safe-area к высоте,
+       чтобы видимая часть ниже выреза осталась ~30svh */
+    height: calc(30svh + env(safe-area-inset-top));
   }
 
   .content {
@@ -407,7 +409,8 @@ body {
   display: flex;
   justify-content: center;
   gap: clamp(24px, 5vw, 56px);
-  padding: 18px 24px 24px;
+  /* нижний safe-area — чтобы навигация не пряталась под «домашнюю полоску» */
+  padding: 18px 24px calc(24px + env(safe-area-inset-bottom));
   font-size: 11px;
   letter-spacing: 0.12em;
 }
