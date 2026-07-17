@@ -98,6 +98,48 @@ body {
     flex: 1;
     min-height: 0;
   }
+
+  /* Плотная компоновка на мобильном: каждое заведение — единый блок,
+     лого и анимация рядом, подпись вплотную, меньше воздуха между рядами */
+  .rows {
+    gap: clamp(20px, 3.4vh, 34px);
+    padding: 16px 20px 20px;
+  }
+
+  .row {
+    gap: 5px;
+  }
+
+  .row__head {
+    gap: 12px;
+  }
+
+  .row__doodle {
+    width: clamp(56px, 15vw, 72px);
+  }
+
+  .row__logo {
+    height: clamp(38px, 8vw, 52px);
+  }
+
+  .row__logo--wordmark {
+    height: clamp(20px, 4.4vw, 28px);
+  }
+
+  .row__logo--tall {
+    height: clamp(52px, 12vw, 72px);
+  }
+
+  .row__logo--compact {
+    height: clamp(34px, 7vw, 46px);
+  }
+
+  /* подпись в 1–2 строки, без узкого ограничения ширины */
+  .row__meta {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    max-width: none;
+  }
 }
 
 .top {
@@ -125,8 +167,9 @@ body {
 .row {
   --row-d: 0s;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: clamp(18px, 3vw, 40px);
+  gap: 10px;
   text-decoration: none;
   color: var(--ink);
 }
@@ -139,11 +182,11 @@ body {
   --row-d: 0.4s;
 }
 
-.row__stack {
+/* лого и анимация в одной строке, подпись — сразу под ними */
+.row__head {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: clamp(16px, 3vw, 40px);
 }
 
 /* Логотипы — векторная css-маска с чёрной заливкой: на ховере
