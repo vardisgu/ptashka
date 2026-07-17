@@ -1,5 +1,5 @@
-import { Triptych } from "@/components/triptych";
+import { Hub } from "@/components/hub";
 
 export default function Home() {
-  return <Triptych />;
+  return <Hub />;
 }
