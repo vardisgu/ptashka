@@ -46,7 +46,7 @@ const venues: Venue[] = [
     logo: "/logo/melok.svg",
     logoAlt: "Мелок",
     logoClass: "row__logo row__logo--compact",
-    meta: "винный бар — кухня и события — кави наджми, 8а",
+    meta: "днём — бистро, вечером — вино — кави наджми, 8а",
     doodle: "wine",
     doodleSide: "right",
   },
