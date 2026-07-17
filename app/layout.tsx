@@ -11,6 +11,12 @@ export const metadata: Metadata = {
   title: "Ранняя пташка · Ясный · Мелок",
   description:
     "Три места одной команды в Казани: кофейня «Ранняя пташка», батч-бар «Ясный» и винный бар «Мелок».",
+  // Режим «на экран Домой»: запускается полноэкранно, фото уходит под чёлку
+  appleWebApp: {
+    capable: true,
+    title: "Пташка · Ясный · Мелок",
+    statusBarStyle: "black-translucent",
+  },
 };
 
 export const viewport: Viewport = {
