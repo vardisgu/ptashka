@@ -54,20 +54,31 @@ function BagelDoodle() {
   return (
     <svg viewBox="0 0 120 120" className="row__doodle doodle doodle--bagel" aria-hidden>
       <g className="bagel-rock">
+        {/* верхняя половинка с намёком на дырку */}
         <path
           className="d d1"
           pathLength={1}
-          d="M60 34 C86 34 103 46 103 63 C103 80 84 92 60 92 C36 92 17 80 17 63 C17 46 34 34 60 34 Z"
+          d="M20 54 C17 38 38 27 60 27 C82 27 103 38 100 54"
         />
+        <path className="d d2 thin" pathLength={1} d="M54 31 q6 -4 12 0" />
+        {/* начинка — волнистые слои */}
         <path
-          className="d d2"
+          className="d d2 thin"
           pathLength={1}
-          d="M60 54 C69 54 76 58 76 63 C76 68 69 72 60 72 C51 72 44 68 44 63 C44 58 51 54 60 54 Z"
+          d="M20 58 q7 7 14 0 q7 -7 14 0 q7 7 14 0 q7 -7 14 0 q7 7 14 0 q7 -7 10 3"
         />
+        <path className="d d2 thin" pathLength={1} d="M28 66 q8 5 18 2 M62 68 q10 3 20 -2" />
+        {/* нижняя половинка */}
+        <path
+          className="d d1"
+          pathLength={1}
+          d="M24 72 C24 82 40 89 60 89 C80 89 96 82 96 72"
+        />
+        {/* кунжут */}
         <path
           className="d d3 thin"
           pathLength={1}
-          d="M38 47 l6 -3 M64 41 l7 -1 M84 50 l6 3 M30 60 l-7 1 M89 66 l7 2"
+          d="M34 38 l6 -3 M52 32 l6 -1 M72 33 l6 2 M87 42 l6 3 M43 34 l4 -3"
         />
       </g>
     </svg>
@@ -77,22 +88,28 @@ function BagelDoodle() {
 function CoffeeDoodle() {
   return (
     <svg viewBox="0 0 120 120" className="row__doodle doodle doodle--coffee" aria-hidden>
-      <path className="steam s1 thin" pathLength={1} d="M48 44 C44 37 52 32 48 24" />
-      <path className="steam s2 thin" pathLength={1} d="M64 44 C60 37 68 32 64 24" />
+      <path className="steam s1 thin" pathLength={1} d="M44 44 C40 37 48 32 44 24" />
+      <path className="steam s2 thin" pathLength={1} d="M58 42 C54 34 62 29 58 20" />
+      <path className="steam s3 thin" pathLength={1} d="M72 44 C68 37 76 32 72 24" />
       <g className="star-wrap">
         <path
           className="d d3 thin"
           pathLength={1}
-          d="M88 22 l0 12 M82 28 l12 0 M84 24 l8 8 M92 24 l-8 8"
+          d="M92 20 l0 12 M86 26 l12 0 M88 22 l8 8 M96 22 l-8 8"
         />
       </g>
+      <path className="d d3 thin" pathLength={1} d="M103 38 l0 6 M100 41 l6 0" />
+      {/* чашка с поверхностью кофе */}
       <path
         className="d d1"
         pathLength={1}
-        d="M34 56 L86 56 C86 76 78 90 60 90 C42 90 34 76 34 56 Z"
+        d="M32 56 L84 56 C84 76 76 90 58 90 C40 90 32 76 32 56 Z"
       />
-      <path className="d d2" pathLength={1} d="M86 61 C96 59 98 74 84 77" />
-      <path className="d d2" pathLength={1} d="M30 98 C42 104 78 104 90 98" />
+      <path className="d d2 thin" pathLength={1} d="M38 62 C44 66 72 66 78 62" />
+      <path className="d d2" pathLength={1} d="M84 61 C94 59 96 74 82 77" />
+      {/* блюдце и ложка */}
+      <path className="d d2" pathLength={1} d="M26 97 C38 103 78 103 90 97" />
+      <path className="d d3 thin" pathLength={1} d="M93 96 c7 -1 12 -4 16 -8 M106 85 q4 2 3 5 q-1 3 -5 2" />
     </svg>
   );
 }
@@ -100,8 +117,9 @@ function CoffeeDoodle() {
 function WineDoodle() {
   return (
     <svg viewBox="0 0 120 120" className="row__doodle doodle doodle--wine" aria-hidden>
-      <g transform="translate(100 24) rotate(-120)">
-        <g className="bottle-tilt">
+      {/* бутылка: стоит на столе, поднимается и наклоняется над бокалом */}
+      <g className="bottle-pos">
+        <g className="bottle-rot">
           <path
             className="d d1"
             pathLength={1}
@@ -109,14 +127,17 @@ function WineDoodle() {
           />
         </g>
       </g>
-      <path className="pour thin" pathLength={1} d="M87 33 C84 41 82 49 81 56" />
+      {/* струя — только в наклоне */}
+      <path className="pour thin" pathLength={1} d="M84 30 C82 37 81 43 80 50" />
+      {/* винный бокал-тюльпан */}
       <path
         className="d d2"
         pathLength={1}
-        d="M56 58 L100 58 C100 74 92 84 78 84 C64 84 56 74 56 58 Z"
+        d="M63 46 L93 46 C97 60 95 74 84 80 C80 82.5 76 82.5 72 80 C61 74 59 60 63 46 Z"
       />
-      <path className="wine-level thin" pathLength={1} d="M62 68 C68 71 88 71 94 68" />
-      <path className="d d3" pathLength={1} d="M78 84 L78 100 M64 104 L92 104" />
+      <path className="wine-level thin" pathLength={1} d="M64 64 C70 67 86 67 92 64" />
+      {/* ножка и стол */}
+      <path className="d d3" pathLength={1} d="M78 82 L78 100 M52 104 L118 104" />
     </svg>
   );
 }

@@ -249,7 +249,11 @@ body {
 }
 
 .doodle .s2 {
-  animation-delay: calc(var(--row-d) + 2.5s);
+  animation-delay: calc(var(--row-d) + 2s);
+}
+
+.doodle .s3 {
+  animation-delay: calc(var(--row-d) + 3s);
 }
 
 @keyframes steam {
@@ -295,67 +299,60 @@ body {
   }
 }
 
-/* вино доливается: струя течёт → пауза → снова */
+/* ---- Вино: сюжетный цикл (6s) ----
+   бутылка стоит на столе → поднимается и наклоняется над бокалом →
+   только в наклоне течёт струя и растёт уровень → возвращается */
+
+.bottle-pos {
+  animation: bottle-pos 6s ease-in-out infinite both;
+  animation-delay: calc(var(--row-d) + 1.3s);
+}
+
+@keyframes bottle-pos {
+  0%, 18% { transform: translate(106px, 88px); }
+  33%, 62% { transform: translate(99px, 22px); }
+  78%, 100% { transform: translate(106px, 88px); }
+}
+
+.bottle-rot {
+  transform-box: fill-box;
+  transform-origin: 50% 55%;
+  animation: bottle-rot 6s ease-in-out infinite both;
+  animation-delay: calc(var(--row-d) + 1.3s);
+}
+
+@keyframes bottle-rot {
+  0%, 18% { transform: rotate(0deg); }
+  33%, 62% { transform: rotate(-118deg); }
+  78%, 100% { transform: rotate(0deg); }
+}
+
 .doodle .pour {
   opacity: 0;
-  animation: pour 2.9s var(--ease) infinite;
-  animation-delay: calc(var(--row-d) + 1.2s);
+  animation: pour 6s linear infinite both;
+  animation-delay: calc(var(--row-d) + 1.3s);
 }
 
 @keyframes pour {
-  0% {
-    stroke-dashoffset: 1;
-    opacity: 1;
-  }
-  22% {
-    stroke-dashoffset: 0;
-    opacity: 1;
-  }
-  62% {
-    stroke-dashoffset: 0;
-    opacity: 1;
-  }
-  74% {
-    stroke-dashoffset: 0;
-    opacity: 0;
-  }
-  100% {
-    stroke-dashoffset: 1;
-    opacity: 0;
-  }
+  0%, 33% { stroke-dashoffset: 1; opacity: 0; }
+  35% { opacity: 1; }
+  42% { stroke-dashoffset: 0; opacity: 1; }
+  60% { stroke-dashoffset: 0; opacity: 1; }
+  66% { stroke-dashoffset: 0; opacity: 0; }
+  100% { stroke-dashoffset: 1; opacity: 0; }
 }
 
-/* уровень вина колышется */
+/* уровень вина: подрастает во время налива */
 .doodle .wine-level {
   animation: draw 650ms var(--ease) forwards backwards,
-    slosh 3.4s ease-in-out infinite;
-  animation-delay: calc(var(--row-d) + 0.85s), calc(var(--row-d) + 1.6s);
+    level-rise 6s ease-in-out infinite;
+  animation-delay: calc(var(--row-d) + 0.85s), calc(var(--row-d) + 1.3s);
 }
 
-@keyframes slosh {
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-  50% {
-    transform: translateX(3.5px);
-  }
-}
-
-/* бутылка едва дышит */
-.bottle-tilt {
-  animation: tilt 3.8s ease-in-out infinite;
-  animation-delay: calc(var(--row-d) + 1.6s);
-}
-
-@keyframes tilt {
-  0%,
-  100% {
-    transform: rotate(0deg);
-  }
-  50% {
-    transform: rotate(3deg);
-  }
+@keyframes level-rise {
+  0%, 36% { transform: translateY(0); }
+  50%, 64% { transform: translateY(-3.5px); }
+  86%, 100% { transform: translateY(0); }
 }
 
 /* ---------- Ховер ---------- */
@@ -421,10 +418,22 @@ body {
 
   .bagel-rock,
   .star-wrap,
-  .bottle-tilt,
+  .bottle-pos,
+  .bottle-rot,
   .doodle .steam,
   .doodle .pour {
     animation: none;
+  }
+
+  /* бутылка в статике — в позе налива */
+  .bottle-pos {
+    transform: translate(99px, 22px);
+  }
+
+  .bottle-rot {
+    transform-box: fill-box;
+    transform-origin: 50% 55%;
+    transform: rotate(-118deg);
   }
 
   /* статичные пар и струя остаются видимыми */
