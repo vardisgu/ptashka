@@ -14,7 +14,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#fcfafc",
+  // theme-color не задаём: белый красил зону статус-бара на iOS и создавал
+  // белую полосу над фото. Без него контент показывается под чёлкой.
   viewportFit: "cover",
 };
 

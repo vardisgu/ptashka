@@ -23,7 +23,7 @@ const venues: Venue[] = [
     href: "https://www.instagram.com/ptashka_coffee/",
     logo: "/logo/ptashka.svg",
     logoAlt: "ранняя пташка",
-    logoClass: "row__logo",
+    logoClass: "row__logo row__logo--wordmark",
     meta: "кофейня — завтраки весь день — астрономическая, 17",
     doodle: "bagel",
     doodleSide: "right",

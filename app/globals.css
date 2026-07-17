@@ -161,6 +161,12 @@ body {
   transition: background-color 220ms ease;
 }
 
+/* Новый широкий словесный знак «Пташки» — своя пропорция и меньшая высота */
+.row__logo--wordmark {
+  aspect-ratio: 5556 / 525;
+  height: clamp(26px, 4.6vw, 46px);
+}
+
 /* Рукописный знак «Ясного» компактнее словесных — выравниваем оптический размер */
 .row__logo--tall {
   height: clamp(62px, 11vw, 106px);
