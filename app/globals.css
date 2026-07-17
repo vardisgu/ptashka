@@ -99,19 +99,20 @@ body {
     min-height: 0;
   }
 
-  /* Плотная компоновка на мобильном: каждое заведение — единый блок,
-     лого и анимация рядом, подпись вплотную, меньше воздуха между рядами */
+  /* Те же позиции, но компоновка плотнее: меньше расстояний */
   .rows {
-    gap: clamp(20px, 3.4vh, 34px);
+    gap: clamp(18px, 3vh, 30px);
     padding: 16px 20px 20px;
   }
 
+  /* анимация ближе к логотипу */
   .row {
-    gap: 5px;
+    gap: clamp(8px, 2.5vw, 16px);
   }
 
-  .row__head {
-    gap: 12px;
+  /* логотип и подпись ближе друг к другу */
+  .row__stack {
+    gap: 7px;
   }
 
   .row__doodle {
@@ -167,9 +168,8 @@ body {
 .row {
   --row-d: 0s;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: clamp(18px, 3vw, 40px);
   text-decoration: none;
   color: var(--ink);
 }
@@ -182,11 +182,11 @@ body {
   --row-d: 0.4s;
 }
 
-/* лого и анимация в одной строке, подпись — сразу под ними */
-.row__head {
+.row__stack {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: clamp(16px, 3vw, 40px);
+  gap: 12px;
 }
 
 /* Логотипы — векторная css-маска с чёрной заливкой: на ховере

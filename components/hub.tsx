@@ -174,17 +174,17 @@ export function Hub() {
               aria-label={`${v.name} — ${v.meta}`}
               className={`row row--${i + 1}`}
             >
-              <span className="row__head">
-                {v.doodleSide === "left" && <Doodle />}
+              {v.doodleSide === "left" && <Doodle />}
+              <span className="row__stack">
                 <span
                   role="img"
                   aria-label={v.logoAlt}
                   className={v.logoClass}
                   style={{ maskImage: mask, WebkitMaskImage: mask }}
                 />
-                {v.doodleSide === "right" && <Doodle />}
+                <span className="row__meta">{v.meta}</span>
               </span>
-              <span className="row__meta">{v.meta}</span>
+              {v.doodleSide === "right" && <Doodle />}
             </a>
           );
         })}
