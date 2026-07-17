@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Onest } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const onest = Onest({
+const mono = JetBrains_Mono({
   subsets: ["latin", "cyrillic"],
-  variable: "--font-onest",
+  variable: "--font-mono",
 });
 
 export const metadata: Metadata = {
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#ffffff",
+  themeColor: "#fcfafc",
 };
 
 export default function RootLayout({
@@ -23,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru" className={`${onest.variable} h-full`}>
+    <html lang="ru" className={`${mono.variable} h-full`}>
       <body className="h-full antialiased">{children}</body>
     </html>
   );

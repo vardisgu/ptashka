@@ -1,12 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --ink: #111111;
-  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+  --ink: #0d0d0d;
+  --paper: #fcfafc;
+  --muted: #8a8a8a;
+  --accent: #e8402a;
+  --ease: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 @theme inline {
-  --font-sans: var(--font-onest);
+  --font-sans: var(--font-mono);
 }
 
 html,
@@ -15,45 +18,64 @@ body {
 }
 
 body {
-  background: #ffffff;
+  background: var(--paper);
   color: var(--ink);
-  font-family: var(--font-onest), system-ui, sans-serif;
+  font-family: var(--font-mono), ui-monospace, monospace;
 }
 
-/* ---------- Минималистичный хаб: три логотипа столбиком ---------- */
+/* ---------- Страница-вывеска ---------- */
 
-.hub {
-  min-height: 100dvh;
+.page {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 24px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+/* ---------- Три заведения ---------- */
+
+.rows {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: clamp(18px, 4vh, 38px);
-  padding: 24px;
+  gap: clamp(34px, 7vh, 68px);
+  padding: 0 20px;
 }
 
-.hub__row {
+.row {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: clamp(18px, 3vw, 30px);
-  color: var(--ink);
+  gap: 12px;
   text-decoration: none;
+  color: var(--ink);
   opacity: 0;
-  animation: row-in 640ms var(--ease-out-strong) forwards;
+  animation: rise 640ms var(--ease) forwards;
 }
 
-.hub__row:nth-child(2) {
+.row:nth-child(2) {
   animation-delay: 110ms;
 }
 
-.hub__row:nth-child(3) {
+.row:nth-child(3) {
   animation-delay: 220ms;
 }
 
-@keyframes row-in {
+@keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
@@ -61,49 +83,88 @@ body {
   }
 }
 
-/* Логотипы заведений в чёрном исполнении */
-.hub__logo {
-  height: clamp(38px, 6.5vw, 58px);
+.row__logo {
+  height: clamp(44px, 7.5vw, 74px);
   width: auto;
   filter: brightness(0);
+  transition: transform 320ms var(--ease);
 }
 
 /* Рукописный знак «Ясного» компактнее словесных — выравниваем оптический размер */
-.hub__logo--tall {
-  height: clamp(52px, 9.5vw, 80px);
+.row__logo--tall {
+  height: clamp(62px, 11vw, 106px);
 }
 
-/* Крупные глифы «Мелка» чуть ужимаем, чтобы не давил соседей */
-.hub__logo--compact {
-  height: clamp(32px, 5.5vw, 48px);
+/* Крупные глифы «Мелка» чуть ужимаем */
+.row__logo--compact {
+  height: clamp(38px, 6.4vw, 62px);
 }
 
-.hub__icon3d {
-  width: clamp(80px, 10.5vw, 122px);
-  aspect-ratio: 1;
-  flex: 0 0 auto;
-}
-
-.hub__icon3d canvas {
-  width: 100% !important;
-  height: 100% !important;
-  display: block;
+.row__meta {
+  font-size: clamp(10px, 1.15vw, 12px);
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  text-align: center;
+  transition: color 200ms ease;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .hub__row {
-    transition: transform 240ms var(--ease-out-strong);
+  .row:hover .row__logo {
+    transform: translateY(-3px) rotate(-1.2deg);
   }
 
-  .hub__row:hover {
-    transform: translateY(-2px);
+  .row:hover .row__meta {
+    color: var(--accent);
+  }
+}
+
+.row:focus-visible {
+  outline: none;
+}
+
+.row:focus-visible .row__meta {
+  color: var(--accent);
+}
+
+/* ---------- Бегущая строка ---------- */
+
+.ticker {
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 16px 0 20px;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+}
+
+.ticker__track {
+  display: inline-flex;
+  animation: ticker 52s linear infinite;
+  will-change: transform;
+}
+
+.ticker__half {
+  display: inline-block;
+  padding-right: 0.4em;
+}
+
+@keyframes ticker {
+  to {
+    transform: translateX(-50%);
   }
 }
 
 /* ---------- Reduced motion ---------- */
 
 @media (prefers-reduced-motion: reduce) {
-  .hub__row {
+  .row {
     animation-duration: 1ms;
+  }
+
+  .row__logo {
+    transition: none;
+  }
+
+  .ticker__track {
+    animation: none;
   }
 }

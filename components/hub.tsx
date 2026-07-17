@@ -1,5 +1,3 @@
-import { Icon3D } from "@/components/icons3d";
-
 // В статическом экспорте с unoptimized next/image не префиксует src
 // значением basePath — добавляем его вручную
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
@@ -11,8 +9,7 @@ type Venue = {
   logo: string;
   logoAlt: string;
   logoClass: string;
-  icon: "bagel" | "coffee" | "wine";
-  iconSide: "left" | "right";
+  meta: string;
 };
 
 const venues: Venue[] = [
@@ -22,9 +19,8 @@ const venues: Venue[] = [
     href: "https://www.instagram.com/ptashka_coffee/",
     logo: "/logo/ptashka.png",
     logoAlt: "ранняя пташка",
-    logoClass: "hub__logo",
-    icon: "bagel",
-    iconSide: "right",
+    logoClass: "row__logo",
+    meta: "кофейня — завтраки весь день — астрономическая, 17",
   },
   {
     slug: "yasniy",
@@ -32,9 +28,8 @@ const venues: Venue[] = [
     href: "https://www.instagram.com/yasniybar/",
     logo: "/logo/yisniy.png",
     logoAlt: "Ясный",
-    logoClass: "hub__logo hub__logo--tall",
-    icon: "coffee",
-    iconSide: "left",
+    logoClass: "row__logo row__logo--tall",
+    meta: "батч-бар — безлимитный фильтр — островского, 9",
   },
   {
     slug: "melok",
@@ -42,30 +37,46 @@ const venues: Venue[] = [
     href: "https://www.instagram.com/melok.bar/",
     logo: "/logo/melok.png",
     logoAlt: "Мелок",
-    logoClass: "hub__logo hub__logo--compact",
-    icon: "wine",
-    iconSide: "right",
+    logoClass: "row__logo row__logo--compact",
+    meta: "винный бар — кухня и события — кави наджми, 8а",
   },
 ];
 
+const tickerLine =
+  "завтраки ✳ спешалти-кофе ✳ безлимитный фильтр ✳ своя пекарня ✳ " +
+  "натуральное вино ✳ мероприятия ✳ казань ✳ ";
+
 export function Hub() {
   return (
-    <main className="hub">
-      {venues.map((v) => (
-        <a
-          key={v.slug}
-          href={v.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`${v.name} — перейти`}
-          className="hub__row"
-        >
-          {v.iconSide === "left" && <Icon3D kind={v.icon} />}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={`${basePath}${v.logo}`} alt={v.logoAlt} className={v.logoClass} />
-          {v.iconSide === "right" && <Icon3D kind={v.icon} />}
-        </a>
-      ))}
-    </main>
+    <div className="page">
+      <header className="top">
+        <span>одна команда — три места</span>
+        <span>казань</span>
+      </header>
+
+      <main className="rows">
+        {venues.map((v) => (
+          <a
+            key={v.slug}
+            href={v.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${v.name} — ${v.meta}`}
+            className="row"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={`${basePath}${v.logo}`} alt={v.logoAlt} className={v.logoClass} />
+            <span className="row__meta">{v.meta}</span>
+          </a>
+        ))}
+      </main>
+
+      <footer className="ticker" aria-hidden>
+        <div className="ticker__track">
+          <span className="ticker__half">{tickerLine.repeat(3)}</span>
+          <span className="ticker__half">{tickerLine.repeat(3)}</span>
+        </div>
+      </footer>
+    </div>
   );
 }
