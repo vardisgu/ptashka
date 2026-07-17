@@ -49,16 +49,25 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: clamp(22px, 4.5vh, 48px);
+  gap: clamp(26px, 5.5vh, 56px);
   padding: 12px 20px 32px;
 }
 
 .row {
+  --row-d: 0s;
   display: flex;
   align-items: center;
-  gap: clamp(20px, 3.5vw, 44px);
+  gap: clamp(18px, 3vw, 40px);
   text-decoration: none;
   color: var(--ink);
+}
+
+.row--2 {
+  --row-d: 0.2s;
+}
+
+.row--3 {
+  --row-d: 0.4s;
 }
 
 .row__stack {
@@ -68,12 +77,13 @@ body {
   gap: 12px;
 }
 
-/* Логотипы — векторные, чёрные */
+/* Логотипы — векторные, чёрные, «пишутся» слева направо */
 .row__logo {
   height: clamp(44px, 7.5vw, 74px);
   width: auto;
   clip-path: inset(0 100% 0 0);
   animation: wipe 850ms var(--ease) forwards;
+  animation-delay: calc(var(--row-d) + 0.12s);
 }
 
 /* Рукописный знак «Ясного» компактнее словесных — выравниваем оптический размер */
@@ -99,6 +109,7 @@ body {
   text-align: center;
   opacity: 0;
   animation: fade 500ms ease forwards;
+  animation-delay: calc(var(--row-d) + 0.7s);
   transition: color 200ms ease;
 }
 
@@ -108,75 +119,200 @@ body {
   }
 }
 
-/* ---------- Полароиды ---------- */
+/* ---------- Дудлы: рисуют сами себя и живут в цикле ---------- */
 
-.row__photo {
+.row__doodle {
   flex: 0 0 auto;
-  opacity: 0;
-  animation: drop 720ms var(--ease) forwards;
+  width: clamp(74px, 9.5vw, 118px);
+  height: auto;
+  overflow: visible;
 }
 
-@keyframes drop {
+.doodle path {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  transition: stroke 220ms ease;
+}
+
+.doodle path.thin {
+  stroke-width: 4.2;
+}
+
+/* самоотрисовка штриха: от начала пути к концу */
+.doodle .d {
+  animation: draw 650ms var(--ease) forwards backwards;
+}
+
+.doodle .d1 {
+  animation-delay: calc(var(--row-d) + 0.5s);
+}
+
+.doodle .d2 {
+  animation-delay: calc(var(--row-d) + 0.72s);
+}
+
+.doodle .d3 {
+  animation-delay: calc(var(--row-d) + 0.94s);
+}
+
+@keyframes draw {
   from {
-    opacity: 0;
-    transform: translateY(-30px);
-  }
-  55% {
-    opacity: 1;
+    stroke-dashoffset: 1;
   }
   to {
-    opacity: 1;
-    transform: translateY(0);
+    stroke-dashoffset: 0;
   }
 }
 
-.row__frame {
-  display: block;
-  width: clamp(92px, 11vw, 150px);
-  padding: 6px 6px 20px;
-  background: #ffffff;
-  border: 1px solid #e6e2dc;
-  box-shadow: 0 8px 22px rgba(13, 13, 13, 0.08);
-  transform: rotate(var(--tilt));
-  transition: transform 340ms var(--ease), box-shadow 340ms var(--ease);
+/* бейгл покачивается */
+.bagel-rock {
+  transform-origin: 60px 63px;
+  animation: rock 4.2s ease-in-out infinite;
+  animation-delay: calc(var(--row-d) + 1.6s);
 }
 
-.row__frame img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
+@keyframes rock {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-2.6deg);
+  }
+  75% {
+    transform: rotate(2.6deg);
+  }
 }
 
-/* ---------- Каскад появления ---------- */
+/* пар вьётся: прорисовка → растворение, по кругу */
+.doodle .steam {
+  opacity: 0;
+  animation: steam 3s ease-in-out infinite;
+}
 
-.row--1 .row__logo { animation-delay: 120ms; }
-.row--1 .row__meta { animation-delay: 620ms; }
-.row--1 .row__photo { animation-delay: 260ms; }
+.doodle .s1 {
+  animation-delay: calc(var(--row-d) + 1s);
+}
 
-.row--2 .row__logo { animation-delay: 300ms; }
-.row--2 .row__meta { animation-delay: 800ms; }
-.row--2 .row__photo { animation-delay: 440ms; }
+.doodle .s2 {
+  animation-delay: calc(var(--row-d) + 2.5s);
+}
 
-.row--3 .row__logo { animation-delay: 480ms; }
-.row--3 .row__meta { animation-delay: 980ms; }
-.row--3 .row__photo { animation-delay: 620ms; }
+@keyframes steam {
+  0% {
+    stroke-dashoffset: 1;
+    opacity: 0;
+  }
+  18% {
+    opacity: 0.9;
+  }
+  55% {
+    stroke-dashoffset: 0;
+    opacity: 0.9;
+  }
+  85% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+
+/* звёздочка мерцает */
+.star-wrap {
+  transform-origin: 88px 28px;
+  animation: twinkle 3.6s ease-in-out infinite;
+  animation-delay: calc(var(--row-d) + 1.8s);
+}
+
+@keyframes twinkle {
+  0%,
+  78%,
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+  86% {
+    transform: scale(1.28) rotate(14deg);
+  }
+  93% {
+    transform: scale(0.94) rotate(-6deg);
+  }
+}
+
+/* вино доливается: струя течёт → пауза → снова */
+.doodle .pour {
+  opacity: 0;
+  animation: pour 2.9s var(--ease) infinite;
+  animation-delay: calc(var(--row-d) + 1.2s);
+}
+
+@keyframes pour {
+  0% {
+    stroke-dashoffset: 1;
+    opacity: 1;
+  }
+  22% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  62% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  74% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+  100% {
+    stroke-dashoffset: 1;
+    opacity: 0;
+  }
+}
+
+/* уровень вина колышется */
+.doodle .wine-level {
+  animation: draw 650ms var(--ease) forwards backwards,
+    slosh 3.4s ease-in-out infinite;
+  animation-delay: calc(var(--row-d) + 0.85s), calc(var(--row-d) + 1.6s);
+}
+
+@keyframes slosh {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(3.5px);
+  }
+}
+
+/* бутылка едва дышит */
+.bottle-tilt {
+  animation: tilt 3.8s ease-in-out infinite;
+  animation-delay: calc(var(--row-d) + 1.6s);
+}
+
+@keyframes tilt {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
 
 /* ---------- Ховер ---------- */
 
 @media (hover: hover) and (pointer: fine) {
-  .row__frame img {
-    filter: grayscale(1);
-    transition: filter 380ms ease;
-  }
-
-  .row:hover .row__frame {
-    transform: rotate(0deg) translateY(-5px) scale(1.04);
-    box-shadow: 0 14px 30px rgba(13, 13, 13, 0.12);
-  }
-
-  .row:hover .row__frame img {
-    filter: grayscale(0);
+  .row:hover .doodle path {
+    stroke: var(--accent);
   }
 
   .row:hover .row__meta {
@@ -197,13 +333,24 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .row__logo,
   .row__meta,
-  .row__photo {
+  .doodle .d,
+  .doodle .wine-level {
     animation-duration: 1ms;
     animation-delay: 0ms;
   }
 
-  .row__frame,
-  .row__frame img {
-    transition: none;
+  .bagel-rock,
+  .star-wrap,
+  .bottle-tilt,
+  .doodle .steam,
+  .doodle .pour {
+    animation: none;
+  }
+
+  /* статичные пар и струя остаются видимыми */
+  .doodle .steam,
+  .doodle .pour {
+    opacity: 0.85;
+    stroke-dashoffset: 0;
   }
 }
