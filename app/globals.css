@@ -28,7 +28,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: clamp(44px, 9vh, 84px);
+  gap: clamp(18px, 4vh, 38px);
   padding: 24px;
 }
 
@@ -78,11 +78,16 @@ body {
   height: clamp(32px, 5.5vw, 48px);
 }
 
-.hub__icon {
-  width: clamp(38px, 6vw, 54px);
-  height: auto;
+.hub__icon3d {
+  width: clamp(80px, 10.5vw, 122px);
+  aspect-ratio: 1;
   flex: 0 0 auto;
-  color: var(--ink);
+}
+
+.hub__icon3d canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -95,73 +100,10 @@ body {
   }
 }
 
-/* ---------- Анимации пиктограмм ---------- */
-
-/* Бейгл медленно крутится */
-.icon-bagel {
-  animation: bagel-spin 9s linear infinite;
-}
-
-@keyframes bagel-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* Пар над чашкой поднимается волнами */
-.steam path {
-  opacity: 0;
-  animation: steam-rise 2.8s ease-in-out infinite;
-}
-
-.steam path:nth-child(2) {
-  animation-delay: 0.9s;
-}
-
-.steam path:nth-child(3) {
-  animation-delay: 1.8s;
-}
-
-@keyframes steam-rise {
-  0% {
-    opacity: 0;
-    transform: translateY(3px);
-  }
-  35% {
-    opacity: 0.9;
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-5px);
-  }
-}
-
-/* Струя вина «течёт» пунктиром */
-.pour-stream {
-  stroke-dasharray: 3.5 4.5;
-  animation: pour-flow 700ms linear infinite;
-}
-
-@keyframes pour-flow {
-  to {
-    stroke-dashoffset: -8;
-  }
-}
-
 /* ---------- Reduced motion ---------- */
 
 @media (prefers-reduced-motion: reduce) {
   .hub__row {
     animation-duration: 1ms;
-  }
-
-  .icon-bagel,
-  .pour-stream {
-    animation: none;
-  }
-
-  .steam path {
-    animation: none;
-    opacity: 0.6;
   }
 }
