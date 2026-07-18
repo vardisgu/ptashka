@@ -11,7 +11,8 @@ type Venue = {
   logo: string;
   logoAlt: string;
   logoClass: string;
-  meta: string;
+  tagline: string;
+  addr: string;
   doodle: "bagel" | "coffee" | "wine";
   doodleSide: "left" | "right";
 };
@@ -24,7 +25,8 @@ const venues: Venue[] = [
     logo: "/logo/ptashka.svg",
     logoAlt: "ранняя пташка",
     logoClass: "row__logo row__logo--wordmark",
-    meta: "кофейня — завтраки весь день — астрономическая, 17",
+    tagline: "кофейня — завтраки весь день",
+    addr: "астрономическая, 17",
     doodle: "bagel",
     doodleSide: "right",
   },
@@ -35,7 +37,8 @@ const venues: Venue[] = [
     logo: "/logo/yisniy.svg",
     logoAlt: "Ясный",
     logoClass: "row__logo row__logo--tall",
-    meta: "батч-бар — безлимитный фильтр — островского, 9",
+    tagline: "батч-бар — безлимитный фильтр",
+    addr: "островского, 9",
     doodle: "coffee",
     doodleSide: "left",
   },
@@ -46,7 +49,8 @@ const venues: Venue[] = [
     logo: "/logo/melok.svg",
     logoAlt: "Мелок",
     logoClass: "row__logo row__logo--compact",
-    meta: "днём — бистро, вечером — вино — кави наджми, 8а",
+    tagline: "днём — бистро, вечером — вино",
+    addr: "кави наджми, 8а",
     doodle: "wine",
     doodleSide: "right",
   },
@@ -119,15 +123,15 @@ function CoffeeDoodle() {
 function WineDoodle() {
   return (
     <svg viewBox="0 0 120 120" className="row__doodle doodle doodle--wine" aria-hidden>
-      {/* бутылка: стоит на столе, поднимается и наклоняется над бокалом */}
-      <g className="bottle-pos">
-        <g className="bottle-rot">
-          <path
-            className="d d1"
-            pathLength={1}
-            d="M-6 14 C-6 16.5 6 16.5 6 14 L6 0 C6 -4 2.5 -5.5 2.5 -8.5 L2.5 -14 L-2.5 -14 L-2.5 -8.5 C-2.5 -5.5 -6 -4 -6 0 Z"
-          />
-        </g>
+      {/* бутылка: стоит на столе, поднимается и наклоняется над бокалом.
+          Единый group с translate+rotate — без transform-box: fill-box,
+          который WebKit на iOS рендерит некорректно (даёт «пузырь») */}
+      <g className="bottle">
+        <path
+          className="d d1"
+          pathLength={1}
+          d="M-6 14 C-6 16.5 6 16.5 6 14 L6 0 C6 -4 2.5 -5.5 2.5 -8.5 L2.5 -14 L-2.5 -14 L-2.5 -8.5 C-2.5 -5.5 -6 -4 -6 0 Z"
+        />
       </g>
       {/* струя — только в наклоне */}
       <path className="pour thin" pathLength={1} d="M84 30 C82 37 81 43 80 50" />
@@ -171,7 +175,7 @@ export function Hub() {
               href={v.href}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`${v.name} — ${v.meta}`}
+              aria-label={`${v.name} — ${v.tagline} — ${v.addr}`}
               className={`row row--${i + 1}`}
             >
               {v.doodleSide === "left" && <Doodle />}
@@ -182,7 +186,10 @@ export function Hub() {
                   className={v.logoClass}
                   style={{ maskImage: mask, WebkitMaskImage: mask }}
                 />
-                <span className="row__meta">{v.meta}</span>
+                <span className="row__meta">
+                  <span className="row__tag">{v.tagline}</span>
+                  <span className="row__addr">{v.addr}</span>
+                </span>
               </span>
               {v.doodleSide === "right" && <Doodle />}
             </a>

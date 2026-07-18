@@ -115,11 +115,6 @@ body {
     gap: 7px;
   }
 
-  /* подпись в 2 строки, не сильно шире логотипа — чтобы блок не
-     растягивался и анимация не уезжала вправо */
-  .row__meta {
-    max-width: 30ch;
-  }
 
   .row__doodle {
     width: clamp(56px, 15vw, 72px);
@@ -241,6 +236,16 @@ body {
   animation: fade 500ms ease forwards;
   animation-delay: calc(var(--row-d) + 0.7s);
   transition: color 200ms ease;
+}
+
+/* слоган — всегда одной строкой, адрес — второй */
+.row__tag {
+  display: block;
+  white-space: nowrap;
+}
+
+.row__addr {
+  display: block;
 }
 
 @keyframes fade {
@@ -383,28 +388,18 @@ body {
    бутылка стоит на столе → поднимается и наклоняется над бокалом →
    только в наклоне течёт струя и растёт уровень → возвращается */
 
-.bottle-pos {
-  animation: bottle-pos 6s ease-in-out infinite both;
+/* один group: положение и наклон вместе, вращение вокруг центра бутылки
+   в пользовательских координатах (transform-box по умолчанию view-box) */
+.bottle {
+  transform-origin: 0px 1px;
+  animation: bottle 6s ease-in-out infinite both;
   animation-delay: calc(var(--row-d) + 1.3s);
 }
 
-@keyframes bottle-pos {
-  0%, 18% { transform: translate(106px, 88px); }
-  33%, 62% { transform: translate(99px, 22px); }
-  78%, 100% { transform: translate(106px, 88px); }
-}
-
-.bottle-rot {
-  transform-box: fill-box;
-  transform-origin: 50% 55%;
-  animation: bottle-rot 6s ease-in-out infinite both;
-  animation-delay: calc(var(--row-d) + 1.3s);
-}
-
-@keyframes bottle-rot {
-  0%, 18% { transform: rotate(0deg); }
-  33%, 62% { transform: rotate(-118deg); }
-  78%, 100% { transform: rotate(0deg); }
+@keyframes bottle {
+  0%, 18% { transform: translate(106px, 88px) rotate(0deg); }
+  33%, 62% { transform: translate(99px, 22px) rotate(-118deg); }
+  78%, 100% { transform: translate(106px, 88px) rotate(0deg); }
 }
 
 .doodle .pour {
@@ -504,22 +499,16 @@ body {
 
   .bagel-rock,
   .star-wrap,
-  .bottle-pos,
-  .bottle-rot,
+  .bottle,
   .doodle .steam,
   .doodle .pour {
     animation: none;
   }
 
   /* бутылка в статике — в позе налива */
-  .bottle-pos {
-    transform: translate(99px, 22px);
-  }
-
-  .bottle-rot {
-    transform-box: fill-box;
-    transform-origin: 50% 55%;
-    transform: rotate(-118deg);
+  .bottle {
+    transform-origin: 0px 1px;
+    transform: translate(99px, 22px) rotate(-118deg);
   }
 
   /* статичные пар и струя остаются видимыми */
