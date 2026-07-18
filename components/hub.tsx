@@ -176,22 +176,19 @@ export function Hub() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${v.name} — ${v.tagline} — ${v.addr}`}
-              className={`row row--${i + 1}`}
+              className={`row row--${i + 1} row--${v.doodleSide}`}
             >
-              {v.doodleSide === "left" && <Doodle />}
-              <span className="row__stack">
-                <span
-                  role="img"
-                  aria-label={v.logoAlt}
-                  className={v.logoClass}
-                  style={{ maskImage: mask, WebkitMaskImage: mask }}
-                />
-                <span className="row__meta">
-                  <span className="row__tag">{v.tagline}</span>
-                  <span className="row__addr">{v.addr}</span>
-                </span>
+              <Doodle />
+              <span
+                role="img"
+                aria-label={v.logoAlt}
+                className={v.logoClass}
+                style={{ maskImage: mask, WebkitMaskImage: mask }}
+              />
+              <span className="row__meta">
+                <span className="row__tag">{v.tagline}</span>
+                <span className="row__addr">{v.addr}</span>
               </span>
-              {v.doodleSide === "right" && <Doodle />}
             </a>
           );
         })}

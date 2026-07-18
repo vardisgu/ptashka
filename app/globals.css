@@ -105,31 +105,23 @@ body {
     padding: 16px 20px 20px;
   }
 
-  /* блоки одной ширины → анимация встаёт вплотную после блока с малым
-     отступом, и все правые анимации оказываются на одной линии (без пустоты
-     посередине и без разнобоя по краям) */
+  /* Мобильный: логотип и анимация в одну строку, подпись под ними.
+     Подпись занимает обе колонки и центрируется под парой лого+анимация. */
   .row {
-    justify-content: center;
-    gap: 12px;
+    column-gap: 12px;
+    row-gap: 6px;
   }
 
-  .row__stack {
-    width: clamp(180px, 56vw, 216px);
-    flex: 0 0 auto;
-    gap: 7px;
+  .row--right {
+    grid-template-areas:
+      "logo doodle"
+      "meta meta";
   }
 
-  /* контент прижат к стороне анимации — без зазора внутри блока,
-     при этом блоки одной ширины → анимации выровнены */
-  .row--1 .row__stack,
-  .row--3 .row__stack {
-    align-items: flex-end;
-    text-align: right;
-  }
-
-  .row--2 .row__stack {
-    align-items: flex-start;
-    text-align: left;
+  .row--left {
+    grid-template-areas:
+      "doodle logo"
+      "meta meta";
   }
 
   .row__doodle {
@@ -180,13 +172,34 @@ body {
   padding: 12px 20px 32px;
 }
 
+/* Сетка ряда: одна разметка, разные grid-области на десктопе и мобильном.
+   Десктоп — анимация сбоку и занимает обе строки (логотип сверху, подпись
+   снизу), как раньше. Мобильный (ниже, в медиазапросе) — логотип и анимация
+   в одну строку, подпись под ними. */
 .row {
   --row-d: 0s;
-  display: flex;
+  display: grid;
   align-items: center;
-  gap: clamp(18px, 3vw, 40px);
+  justify-items: center;
+  justify-content: center;
+  column-gap: clamp(18px, 3vw, 40px);
+  row-gap: 10px;
   text-decoration: none;
   color: var(--ink);
+}
+
+.row--right {
+  grid-template-columns: auto auto;
+  grid-template-areas:
+    "logo doodle"
+    "meta doodle";
+}
+
+.row--left {
+  grid-template-columns: auto auto;
+  grid-template-areas:
+    "doodle logo"
+    "doodle meta";
 }
 
 .row--2 {
@@ -197,16 +210,18 @@ body {
   --row-d: 0.4s;
 }
 
-.row__stack {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
+.row__doodle {
+  grid-area: doodle;
+}
+
+.row__meta {
+  grid-area: meta;
 }
 
 /* Логотипы — векторная css-маска с чёрной заливкой: на ховере
    перекрашивается вместе с остальным рядом. «Пишутся» слева направо */
 .row__logo {
+  grid-area: logo;
   display: block;
   height: clamp(44px, 7.5vw, 74px);
   aspect-ratio: 2100 / 444;
