@@ -105,22 +105,35 @@ body {
     padding: 16px 20px 20px;
   }
 
-  /* ряд на всю ширину, анимация уходит к краю: правые доодлы (бейгл, вино)
-     выравниваются по одному правому краю, кофе — по левому */
+  /* блоки одной ширины → анимация встаёт вплотную после блока с малым
+     отступом, и все правые анимации оказываются на одной линии (без пустоты
+     посередине и без разнобоя по краям) */
   .row {
-    width: 100%;
-    justify-content: space-between;
+    justify-content: center;
     gap: 12px;
   }
 
-  /* логотип и подпись ближе друг к другу */
   .row__stack {
+    width: clamp(180px, 56vw, 216px);
+    flex: 0 0 auto;
     gap: 7px;
   }
 
+  /* контент прижат к стороне анимации — без зазора внутри блока,
+     при этом блоки одной ширины → анимации выровнены */
+  .row--1 .row__stack,
+  .row--3 .row__stack {
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  .row--2 .row__stack {
+    align-items: flex-start;
+    text-align: left;
+  }
 
   .row__doodle {
-    width: clamp(56px, 15vw, 72px);
+    width: clamp(50px, 13vw, 64px);
   }
 
   .row__logo {
