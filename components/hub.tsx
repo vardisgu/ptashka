@@ -122,7 +122,10 @@ function CoffeeDoodle() {
 
 function WineDoodle() {
   return (
-    <svg viewBox="0 0 120 120" className="row__doodle doodle doodle--wine" aria-hidden>
+    // viewBox сдвинут: видимый рисунок (бутылка+бокал) во всех фазах анимации
+    // лежит в x≈52..118 — левая половина стандартного 0..120 бокса пустует
+    // и создаёт зазор между текстом и рисунком. Сдвиг на +25 центрирует его.
+    <svg viewBox="25 0 120 120" className="row__doodle doodle doodle--wine" aria-hidden>
       {/* бутылка: стоит на столе, поднимается и наклоняется над бокалом.
           Единый group с translate+rotate — без transform-box: fill-box,
           который WebKit на iOS рендерит некорректно (даёт «пузырь») */}
