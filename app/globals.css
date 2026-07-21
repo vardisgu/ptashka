@@ -102,7 +102,7 @@ body {
 
   /* Те же позиции, но компоновка плотнее: меньше расстояний */
   .rows {
-    gap: clamp(18px, 3vh, 30px);
+    gap: clamp(10px, 2vh, 18px);
     padding: 16px 20px 20px;
   }
 
@@ -169,7 +169,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: clamp(26px, 5.5vh, 56px);
+  gap: clamp(14px, 3vh, 30px);
   padding: 12px 20px 32px;
 }
 
@@ -207,7 +207,7 @@ body {
    отделяет средний ряд от «пташки» и «мелка» */
 .row--2 {
   --row-d: 0.2s;
-  padding-block: clamp(14px, 3vh, 26px);
+  padding-block: clamp(6px, 1.5vh, 14px);
   border-top: 1px solid rgba(13, 13, 13, 0.08);
   border-bottom: 1px solid rgba(13, 13, 13, 0.08);
 }
