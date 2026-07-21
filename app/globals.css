@@ -5,6 +5,7 @@
   --paper: #fcfafc;
   --muted: #8a8a8a;
   --accent: #e8402a;
+  --accent-yellow: #fdb400;
   --ease: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
@@ -202,8 +203,13 @@ body {
     "doodle meta";
 }
 
+/* лёгкое разделение «Ясного» — тонкая линия сверху и снизу, ненавязчиво
+   отделяет средний ряд от «пташки» и «мелка» */
 .row--2 {
   --row-d: 0.2s;
+  padding-block: clamp(14px, 3vh, 26px);
+  border-top: 1px solid rgba(13, 13, 13, 0.08);
+  border-bottom: 1px solid rgba(13, 13, 13, 0.08);
 }
 
 .row--3 {
@@ -232,6 +238,21 @@ body {
   animation: wipe 850ms var(--ease) forwards;
   animation-delay: calc(var(--row-d) + 0.12s);
   transition: background-color 220ms ease;
+}
+
+/* «мелок» на ховере: mask на .row__logo обрезает любые filter/box-shadow
+   эффекты по контуру знака, поэтому тень рисуем на отдельном немаскированном
+   слое (background-image, не mask-image) поверх — filter на нём не обрезается
+   и тень может свободно выходить за пределы букв */
+.row__logo-glow {
+  grid-area: logo;
+  display: block;
+  height: clamp(44px, 7.5vw, 74px);
+  aspect-ratio: 2100 / 444;
+  background: center / contain no-repeat;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms ease;
 }
 
 /* Новый широкий словесный знак «Пташки»: своя пропорция, высота подобрана
@@ -464,16 +485,26 @@ body {
 /* ---------- Ховер ---------- */
 
 @media (hover: hover) and (pointer: fine) {
-  .row:hover .doodle path {
-    stroke: var(--accent);
-  }
-
-  .row:hover .row__logo {
+  /* «ранняя пташка» — красная надпись */
+  .row--1:hover .row__logo {
     background-color: var(--accent);
   }
 
-  .row:hover .row__meta {
-    color: var(--accent);
+  /* «ясный» — жёлтый, как в оригинальном логотипе */
+  .row--2:hover .row__logo {
+    background-color: var(--accent-yellow);
+  }
+
+  /* «мелок» — остаётся белым, но проявляется тень вокруг знака:
+     оригинал прячем, вместо него проявляется белый слой с тенью */
+  .row--3:hover .row__logo {
+    background-color: transparent;
+  }
+
+  .row--3:hover .row__logo-glow {
+    opacity: 1;
+    filter: invert(1) drop-shadow(0 1px 2px rgba(13, 13, 13, 0.65))
+      drop-shadow(0 6px 22px rgba(13, 13, 13, 0.5));
   }
 }
 

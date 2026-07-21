@@ -188,6 +188,15 @@ export function Hub() {
                 className={v.logoClass}
                 style={{ maskImage: mask, WebkitMaskImage: mask }}
               />
+              {v.slug === "melok" && (
+                // отдельный, немаскированный слой поверх: mask на родителе
+                // обрезал бы тень по контуру букв — здесь filter работает свободно
+                <span
+                  aria-hidden
+                  className={`row__logo-glow ${v.logoClass.split(" ")[1]}`}
+                  style={{ backgroundImage: mask }}
+                />
+              )}
               <span className="row__meta">
                 <span className="row__tag">{v.tagline}</span>
                 <span className="row__addr">{v.addr}</span>
