@@ -146,8 +146,8 @@ body {
   }
 
   .row__meta {
-    font-size: 10px;
-    letter-spacing: 0.08em;
+    font-size: 13px;
+    letter-spacing: 0.05em;
   }
 }
 
@@ -156,8 +156,8 @@ body {
   justify-content: space-between;
   gap: 16px;
   padding: 20px 24px;
-  font-size: 11px;
-  letter-spacing: 0.12em;
+  font-size: clamp(11px, 3vw, 13px);
+  letter-spacing: 0.1em;
   color: var(--muted);
 }
 
@@ -280,8 +280,8 @@ body {
 }
 
 .row__meta {
-  font-size: clamp(10px, 1.15vw, 12px);
-  letter-spacing: 0.14em;
+  font-size: clamp(11px, 1.3vw, 13px);
+  letter-spacing: 0.12em;
   color: var(--muted);
   text-align: center;
   opacity: 0;
@@ -524,8 +524,8 @@ body {
   gap: clamp(24px, 5vw, 56px);
   /* нижний safe-area — чтобы навигация не пряталась под «домашнюю полоску» */
   padding: 18px 24px calc(24px + env(safe-area-inset-bottom));
-  font-size: 11px;
-  letter-spacing: 0.12em;
+  font-size: clamp(11px, 3vw, 13px);
+  letter-spacing: 0.1em;
 }
 
 .bottom a {
